@@ -34,10 +34,10 @@ jobs:
         run: docker build -t masterdle-front .
 
       - name: Push to GitHub Packages of organization
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_ACCES_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: copsfuraxx/Masterdle/main
           tags: latest
