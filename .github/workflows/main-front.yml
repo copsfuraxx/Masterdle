@@ -1,0 +1,39 @@
+name: Deploy prod site on push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+
+    name: Deploy Vue App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18 LTS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install NPM Modules
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+        
+      - name: Build dockerImage
+        run: docker build -t masterdle-front ./front
+
+      - name: Push to GitHub Packages of organization
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_ACCES_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: copsfuraxx/Masterdle/main
+          tags: latest
