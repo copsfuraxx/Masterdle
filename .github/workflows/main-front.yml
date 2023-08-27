@@ -11,6 +11,10 @@ jobs:
     name: Deploy Vue App
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: front
+
     steps:
       - name: Get latest code
         uses: actions/checkout@v3
@@ -27,7 +31,7 @@ jobs:
         run: npm run build
         
       - name: Build dockerImage
-        run: docker build -t masterdle-front ./front
+        run: docker build -t masterdle-front .
 
       - name: Push to GitHub Packages of organization
         uses: docker/build-push-action@v1
