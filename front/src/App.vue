@@ -1,5 +1,5 @@
 <script setup>
-  import NavigationBar from './components/icons/NavigationBar.vue';
+  import NavigationBar from './components/NavigationBar.vue';
 </script>
 
 <template>
@@ -8,5 +8,6 @@
   </header>
 
   <main>
+    <router-view></router-view>
   </main>
 </template>
