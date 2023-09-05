@@ -19,7 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api/auth', authRoutes); // Mount authentication routes
+app.use('/auth', authRoutes); // Mount authentication routes
 
 app.use((req, res) => {
     res.status(404).json('Page not found');

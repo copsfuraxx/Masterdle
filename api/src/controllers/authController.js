@@ -5,7 +5,7 @@ const logger = require('../logger');
 exports.signup = async (req, res) => {
     try {
         const codeValide = await authService.isCodeValid(req.body.code);
-        if (userExists) {
+        if (!codeValide) {
             res.status(400).json('Code not valide');
             return;
         }

@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from "vue-router";
+import VueCookies from 'vue-cookies'
 import App from './App.vue'
 import LogIn from './components/LogIn.vue'
 
@@ -7,7 +8,7 @@ import './assets/global.css'
 
 const app = createApp(App)
 
-const Home = { template: '<h1>Home</h1>'}
+app.use(VueCookies);
 
 const router = createRouter({
     history: createWebHistory(),
