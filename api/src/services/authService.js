@@ -86,3 +86,9 @@ exports.verifyRefreshToken = (token) => {
         });
     });
 };
+
+exports.isCodeValid = (code) => {
+    return new Promise((resolve, reject) => {
+        resolve(true);
+    });
+}

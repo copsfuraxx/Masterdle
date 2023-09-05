@@ -4,6 +4,12 @@ const logger = require('../logger');
 
 exports.signup = async (req, res) => {
     try {
+        const codeValide = await authService.isCodeValid(req.body.code);
+        if (userExists) {
+            res.status(400).json('Code not valide');
+            return;
+        }
+
         const userExists = await authService.isUserExist(req.body.username);
         if (userExists) {
             res.status(400).json(`User ${req.body.username} already exist`);
