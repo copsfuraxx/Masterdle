@@ -14,14 +14,14 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use((req, res, next) => {
+app.use((req, _res, next) => {
     logger.info(`${new Date().toISOString()} : ${req.method} ${req.originalUrl}`);
     next();
 });
 
 app.use('/auth', authRoutes); // Mount authentication routes
 
-app.use((req, res) => {
+app.use((_req, res) => {
     res.status(404).json('Page not found');
 });
 

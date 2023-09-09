@@ -87,8 +87,18 @@ exports.verifyRefreshToken = (token) => {
     });
 };
 
-exports.isCodeValid = (code) => {
+exports.verifyAccessToken = (token) => {
     return new Promise((resolve, reject) => {
-        resolve(true);
+        jwt.verify(token, ACCESS_TOKEN_SECRET,  (err, user) => {
+            if (err) {
+                if (err instanceof jwt.TokenExpiredError) {
+                    resolve(null);
+                    return;
+                }
+                reject(err);
+                return;
+            }
+            resolve(user.uuid);
+        });
     });
-}
+};

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const AuthController = require('../controllers/authController');
+const authController = require('../controllers/authController');
+const authMiddleware = require('../middleware/authentication.js');
 
-router.post('/signup', AuthController.signup);
-router.post('/login', AuthController.login);
-router.get('/refreshToken', AuthController.refreshToken);
+router.post('/newUser', authMiddleware.checkPermission('admin'), authController.newUser);
+router.post('/login', authController.login);
+router.get('/refreshToken', authController.refreshToken);
 
 module.exports = router;

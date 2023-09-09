@@ -2,14 +2,8 @@ const authService = require('../services/authService');
 const userService = require('../services/userService');
 const logger = require('../logger');
 
-exports.signup = async (req, res) => {
+exports.newUser = async (req, res) => {
     try {
-        const codeValide = await authService.isCodeValid(req.body.code);
-        if (!codeValide) {
-            res.status(400).json('Code not valide');
-            return;
-        }
-
         const userExists = await authService.isUserExist(req.body.username);
         if (userExists) {
             res.status(400).json(`User ${req.body.username} already exist`);
@@ -18,9 +12,9 @@ exports.signup = async (req, res) => {
 
         const hash = await authService.hashPasswrd(req.body.passwrd);
 
-        const uuid = await userService.newUser(req.body.username, hash);
+        await userService.newUser(req.body.username, hash);
         
-        res.status(200).json(await authService.generateToken(uuid));
+        res.status(200).json('User succesfuly create');
 
     } catch (error) {
         logger.error(error.message)
@@ -40,11 +34,14 @@ exports.login = async (req, res) => {
             res.status(400).json('Wrong password');
             return;
         }
-        res.status(200).json(await authService.generateToken(user.uuid));
+        res.status(200).json({
+            userName: user.user_name,
+            userRole: user.user_role,
+            tokens: await authService.generateToken(user.uuid)
+        });
     } catch (error) {
         logger.error(error.message)
         res.status(500).json(error.message);
-        return;
     }
 };
 
