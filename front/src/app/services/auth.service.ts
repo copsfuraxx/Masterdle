@@ -31,6 +31,6 @@ export class AuthService {
   }
 
   isAuthenticatedUser(): boolean {
-    return this.cookieService.get('accessToken') != null;
+    return this.cookieService.check('accessToken');
   }
 }
