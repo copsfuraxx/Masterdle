@@ -1,0 +1,19 @@
+<nav class="navbar">
+    <div class="left">
+        <div class="icon">
+            <!-- Ajoutez ici votre icône -->
+            <i class="material-icons">menu</i>
+        </div>
+        <div class="line"></div>
+        <a routerLink="/home">Home</a>
+    </div>
+    <div class="right">
+        <div class="line"></div>
+        <ng-container *ngIf="!isConnected; else profileLink">
+            <button (click)="login()">Connexion</button>
+        </ng-container>
+        <ng-template #profileLink>
+            <a routerLink="/profile">Profil</a>
+        </ng-template>
+    </div>
+</nav>
