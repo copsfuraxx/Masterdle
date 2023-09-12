@@ -1,5 +1,4 @@
 const mysql = require('mysql2');
-const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 
 const db = mysql.createConnection({

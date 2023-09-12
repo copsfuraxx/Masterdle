@@ -9,7 +9,7 @@ exports.newUser = async (username, hash) => {
             user_name: username,
             user_passwrd: hash
         };
-        let query = db.query(sql, user, (err) => {
+        db.query(sql, user, (err) => {
             if (err) {
                 reject(err);
             }
@@ -21,7 +21,7 @@ exports.newUser = async (username, hash) => {
 exports.findUser = async (username) => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT * FROM User WHERE user_name = '${username}';`;
-        let query = db.query(sql, (err, res) => {
+        db.query(sql, (err, res) => {
             if (err) {
                 reject(err);
             }
@@ -33,7 +33,7 @@ exports.findUser = async (username) => {
 exports.userRoleEquals = async (uuid, role) => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT user_role FROM User WHERE uuid = "${uuid}";`
-        let query = db.query(sql, (err, res) => {
+        db.query(sql, (err, res) => {
             if (err) {
                 reject(err);
             }
