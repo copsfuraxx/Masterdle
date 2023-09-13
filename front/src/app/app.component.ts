@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'front';
+  showSideBar: boolean = true;
+
+  handleNewSideBarState(value:boolean) {
+    this.showSideBar = value;
+    console.log(this.showSideBar)
+  }
 }

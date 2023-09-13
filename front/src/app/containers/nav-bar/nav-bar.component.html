@@ -1,8 +1,11 @@
-<nav class="navbar bg-base-100">
+<nav class="navbar bg-opacity-90 backdrop-blur">
   <div class="navbar-start">
-    <label for="my-drawer" tabindex="0" class="drawer-button btn btn-ghost btn-circle">
+    <label for="my-drawer" tabindex="0" class="drawer-button btn btn-ghost btn-circle lg:hidden">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
     </label>
+    <button (click)="handleSwitchSideBar()" class="drawer-button btn btn-ghost btn-circle hidden lg:flex">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+    </button>
   </div>
   <div class="navbar-center">
     <h2 class="normal-case text-xl">{{route$ | async}}</h2>

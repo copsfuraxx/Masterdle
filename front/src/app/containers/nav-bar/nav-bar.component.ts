@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Router} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Observable, of, switchMap} from "rxjs";
@@ -9,6 +9,8 @@ import { Observable, of, switchMap} from "rxjs";
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit{
+  @Output() newSideBarState = new EventEmitter<boolean>();
+  @Input() sideBarState: boolean = false;
   isConnected: boolean = false;
   route$: Observable<string> = new Observable<string>();
 
@@ -31,5 +33,10 @@ export class NavBarComponent implements OnInit{
 
   handleClickLogIn() {
     this.router.navigate(['login']);
+  }
+
+  handleSwitchSideBar() {
+    this.sideBarState = !this.sideBarState;
+    this.newSideBarState.emit(this.sideBarState);
   }
 }
