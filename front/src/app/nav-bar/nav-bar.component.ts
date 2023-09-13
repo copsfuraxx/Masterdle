@@ -15,7 +15,7 @@ export class NavBarComponent {
    console.log(this.isConnected);
   }
 
-  login() {
+  handleClickLogIn() {
     this.router.navigate(['/login']);
   }
 }
