@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');
 var cron = require('node-cron');
 
 const logger = require('./logger');
-const game1Service = require('./services/game1Service.js');
+const authRoutes = require('./routes/authRoutes');
+const game1Routes = require('./routes/game1Routes');
+const userRoutes = require('./routes/userRoutes');
+const game1Service = require('./services/game1Service');
 
 const config = {
     name: 'masterdle-api',
@@ -17,7 +19,6 @@ const app = express();
 
 async function setSoluceGame1() {
     app.set('game1Soluce', await game1Service.newRandomSoluce());
-    console.log(app.get('game1Soluce'));
 }
 
 setSoluceGame1();
@@ -39,7 +40,9 @@ app.use((req, _res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('/auth', authRoutes); // Mount authentication routes
+app.use('/auth', authRoutes);
+app.use('/game1', game1Routes);
+app.use('/user', userRoutes);
 
 app.use((_req, res) => {
     res.status(404).json('Page not found');
