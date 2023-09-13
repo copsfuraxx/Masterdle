@@ -8,7 +8,11 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {}
 
   login(username: string, passwrd: string): Observable<any> {
     const loginData = { username, passwrd};
