@@ -1,16 +1,13 @@
 <div class="drawer">
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
+  <div class="drawer-content h-screen flex flex-col">
     <app-nav-bar></app-nav-bar>
-    <router-outlet></router-outlet>
+    <div class="grow">
+      <router-outlet></router-outlet>
+    </div>
   </div>
   <div class="drawer-side">
     <label for="my-drawer" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-      <!-- Sidebar content here -->
-      <li><a>Classique</a></li>
-      <li><a>Qui-est ce?</a></li>
-      <li><a>Room Party</a></li>
-    </ul>
+    <app-side-bar></app-side-bar>
   </div>
 </div>
