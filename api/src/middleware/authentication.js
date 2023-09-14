@@ -28,3 +28,26 @@ exports.checkPermission = (permission) => {
         }
     };
 }
+
+exports.isConnected = async (req, res, next) => {
+    // Check if the user is authenticated and has the required permission
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) {
+        res.status(407).json('Token not sent');
+        return;
+    }
+
+    try {
+        const uuid = await authService.verifyAccessToken(token);
+        if (uuid == null) {
+            res.status(400).json('Token Expired');
+            return;
+        }
+        req.uuid = uuid;
+        next();
+    } catch (err) {
+        console.log(err);
+    }
+}

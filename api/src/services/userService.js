@@ -30,6 +30,18 @@ exports.findUser = async (username) => {
     });
 };
 
+exports.findUserWithid = async (uuid) => {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM User WHERE uuid = '${uuid}';`;
+        db.query(sql, (err, res) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(res[0]);
+        });
+    });
+};
+
 exports.userRoleEquals = async (uuid, role) => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT user_role FROM User WHERE uuid = "${uuid}";`
