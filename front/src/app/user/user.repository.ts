@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {environement} from "../../environments/environment";
-import {Observable, of} from "rxjs";
-import {User} from "./user.model";
+import { environement } from "../../environments/environment";
+import { Observable } from "rxjs";
+import { User } from "./user.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ export class UserRepository {
 
   baseUrl = `${environement.apiBaseUrl}/user`;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getUserFromToken(token: string): Observable<User> {
-    return of({userName: 'test', userRole: 'admin'})
+    return this.http.get<any>(`${this.baseUrl}/get`, { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }});
   }
 }

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service'
-import {BehaviorSubject, Observable, Subject, tap} from 'rxjs';
-import {User} from "../user/user.model";
-import {UserService} from "../user/user.service";
-import {AuthRepository} from "./auth.repository";
-import {Login} from "./auth.model";
+import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from "../user/user.model";
+import { UserService } from "../user/user.service";
+import { AuthRepository } from "./auth.repository";
+import { Login } from "./auth.model";
 
 @Injectable({
   providedIn: 'root'
