@@ -7,6 +7,7 @@ exports.newRandomSoluce = async () => {
             if (err) {
                 reject(err);
             }
+            console.log(res);
             resolve(res[0]);
         });
     });
