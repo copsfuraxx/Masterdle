@@ -3,8 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 
 export type LoginForm = FormGroup<{
-  username: FormControl<string>,
-  passwrd: FormControl<string>
+  userName: FormControl<string>,
+  password: FormControl<string>
 }>
 
 @Component({
@@ -14,8 +14,8 @@ export type LoginForm = FormGroup<{
 })
 export class LoginFormComponent{
   loginForm:LoginForm = this.fb.nonNullable.group({
-    username: ["", Validators.required],
-    passwrd: ["", Validators.required]
+    userName: ["", Validators.required],
+    password: ["", Validators.required]
   })
 
   constructor(
