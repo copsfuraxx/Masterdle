@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-bar.component.css'],
   host: {'class': "p-4 w-80 min-h-full bg-base-200"}
 })
-export class SideBarComponent {
-
-}
+export class SideBarComponent {}
