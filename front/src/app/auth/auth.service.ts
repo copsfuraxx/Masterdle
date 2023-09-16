@@ -3,7 +3,7 @@ import { CookieService } from 'ngx-cookie-service'
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from "../user/user.model";
 import { UserService } from "../user/user.service";
-import { AuthRepository } from "./auth.repository";
+import { AuthRepository } from "../../infrastructure/auth/auth.repository";
 import { Login } from "./auth.model";
 
 @Injectable({
