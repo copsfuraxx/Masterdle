@@ -1,14 +1,10 @@
-<div class="drawer flex">
+<div class="drawer lg:drawer-open">
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-  <app-side-bar *ngIf="showSideBar" class="hidden lg:block"></app-side-bar>
-  <div class="drawer-content grow h-screen flex flex-col">
+  <div class="drawer-content">
     <app-nav-bar [sideBarState]="showSideBar" (newSideBarState)="handleNewSideBarState($event)"></app-nav-bar>
-    <div class="grow">
+    <div class="max-w-[100vw] px-6">
       <router-outlet></router-outlet>
     </div>
   </div>
-  <div class="drawer-side">
-    <label for="my-drawer" class="drawer-overlay"></label>
     <app-side-bar></app-side-bar>
-  </div>
 </div>

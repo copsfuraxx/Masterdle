@@ -1,6 +1,19 @@
-<ul class="menu text-base-content">
-  <!-- Sidebar content here -->
-  <li><a routerLink="classique">Classique</a></li>
-  <li><a>Qui-est ce?</a></li>
-  <li><a>Room Party</a></li>
-</ul>
+<label for="my-drawer" class="drawer-overlay"></label>
+<div class="bg-base-200 w-80 h-full">
+  <app-logo class="hidden lg:block"></app-logo>
+  <ul class="menu menu-sm lg:menu-md px-4 py-0">
+    <li class="hidden lg:block"></li>
+    <li class="menu-title flex flex-row gap-4">
+      <span class="text-base-content">
+        <i class="fi fi-sr-calendar-clock w-5 h-5 text-secondary"></i>
+      </span>
+      <span>Journalier</span>
+    </li>
+    <li>
+      <a href="/classic" data-sveltekit-preload-data="hover" id="" class="  ">
+        <span class="undefined">Classique</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
