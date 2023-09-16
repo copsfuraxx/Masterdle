@@ -1,7 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { Router} from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Observable, of, switchMap} from "rxjs";
+import {User} from "../../user/user.model";
+import {LoginFormComponent} from "../../auth/presenters/login-form/login-form.component";
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,16 +13,14 @@ import { Observable, of, switchMap} from "rxjs";
 export class NavBarComponent implements OnInit{
   @Output() newSideBarState = new EventEmitter<boolean>();
   @Input() sideBarState: boolean = false;
-  isConnected: boolean = false;
+  @ViewChild("loginFormComponent") loginFormComponent!: LoginFormComponent;
   route$: Observable<string> = new Observable<string>();
+  userAuthentified$: Observable<User|null> = of(null)
 
   constructor(
     private router: Router,
     private authService: AuthService,
-  ) {
-   this.isConnected = this.authService.isAuthenticatedUser();
-   console.log(this.isConnected);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.route$ = this.router.events.pipe(
@@ -29,14 +29,19 @@ export class NavBarComponent implements OnInit{
         return of(this.router.url.split('/')[1]);
       })
     );
-  }
-
-  handleClickLogIn() {
-    this.router.navigate(['login']);
+    this.userAuthentified$ = this.authService.userAuthentified$;
   }
 
   handleSwitchSideBar() {
     this.sideBarState = !this.sideBarState;
     this.newSideBarState.emit(this.sideBarState);
+  }
+
+  handleClickLogOut() {
+    this.authService.logout();
+  }
+
+  handleSubmit() {
+    this.authService.login(this.loginFormComponent.loginForm.getRawValue());
   }
 }
