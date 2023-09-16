@@ -10,6 +10,7 @@ import { NavBarComponent } from './containers/nav-bar/nav-bar.component';
 import { SideBarComponent } from './containers/side-bar/side-bar.component';
 import { NotFoundComponent } from './containers/not-found/not-found.component';
 import {AuthModule} from "./auth/auth.module";
+import { LogoComponent } from './presenters/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {AuthModule} from "./auth/auth.module";
     NavBarComponent,
     SideBarComponent,
     NotFoundComponent,
+    LogoComponent,
   ],
     imports: [
       BrowserModule,
