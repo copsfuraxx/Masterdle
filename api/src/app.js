@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 var cron = require('node-cron');
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
 
 const logger = require('./logger');
 const authRoutes = require('./routes/authRoutes');
@@ -43,6 +45,7 @@ app.use(bodyParser.json());
 app.use('/auth', authRoutes);
 app.use('/game1', game1Routes);
 app.use('/user', userRoutes);
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.use((_req, res) => {
     res.status(404).json('Page not found');

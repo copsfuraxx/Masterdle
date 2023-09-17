@@ -3,6 +3,19 @@ const userService = require('../services/userService');
 const logger = require('../logger');
 
 exports.newUser = async (req, res) => {
+    /*
+    #swagger.parameters['authorization'] = {
+        in: 'header',
+        required: true,
+        type: 'string',
+        description: 'token with admin role'
+    }
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: { $ref: '#/definitions/UserSign' }
+    }
+    */
     try {
         const userExists = await authService.isUserExist(req.body.username);
         if (userExists) {
@@ -24,21 +37,34 @@ exports.newUser = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+    /*
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: { $ref: '#/definitions/UserSign' }
+    }
+    #swagger.responses[400] = {
+        description: 'Wrong username or password'
+    }
+    #swagger.responses[200] = {
+        schema: {
+            accessToken: 'jwt',
+            refreshToken: 'jwt'
+        }
+    }
+    */
     try {
         const user = await userService.findUser(req.body.username);
         if (user == null) {
-            res.status(400).json(`User ${req.body.username} does not exist`);
+            res.status(400).json('Wrong username or password');
             return;
         }
         if (!await authService.verifyPasswrd(req.body.passwrd, user.user_passwrd)) {
-            res.status(400).json('Wrong password');
+            res.status(400).json('Wrong username or password');
             return;
         }
-        res.status(200).json({
-            userName: user.user_name,
-            userRole: user.user_role,
-            tokens: await authService.generateToken(user.uuid)
-        });
+        let tokens = await authService.generateToken(user.uuid);
+        res.status(200).json(tokens);
     } catch (error) {
         logger.error(error.message)
         res.status(500).json(error.message);
