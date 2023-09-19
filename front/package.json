@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "openapi-gen": "ng-swagger-gen -i temp/swagger_output.json -o src/app/api"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,7 @@
     "@angular/router": "^16.2.0",
     "@flaticon/flaticon-uicons": "^2.4.0",
     "flowbite": "^1.8.1",
+    "ng-swagger-gen": "^2.3.1",
     "ngx-cookie-service": "^16.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

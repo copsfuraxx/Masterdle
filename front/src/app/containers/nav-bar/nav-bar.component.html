@@ -1,17 +1,17 @@
 <nav class="navbar bg-opacity-90 backdrop-blur">
   <div class="navbar-start">
     <label for="my-drawer" tabindex="0" class="drawer-button btn btn-ghost btn-circle lg:hidden">
-      <i class="fi fi-sr-menu-burger text-lg"></i>
+      <i class="fi fi-rr-menu-burger text-lg"></i>
     </label>
     <app-logo class="lg:hidden"></app-logo>
   </div>
   <div class="navbar-end">
     <div *ngIf="(userAuthentified$ | async) else noUser" class="dropdown dropdown-end">
-      <label tabindex="0" class="btn btn-ghost btn-circle  avatar">
+      <div tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 ring ring-primary ring-offset-base-100 ring-offset-2 rounded-full">
           <img src="https://api.dicebear.com/7.x/avataaars/svg"  alt=""/>
         </div>
-      </label>
+      </div>
       <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
         <li><a (click)="handleClickLogOut()">Logout</a></li>
       </ul>

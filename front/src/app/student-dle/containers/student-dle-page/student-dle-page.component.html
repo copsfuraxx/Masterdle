@@ -1,0 +1,56 @@
+<ng-container *ngIf="students$| async as students">
+  <div class="flex flex-col justify-between">
+    <div class="join rounded-full">
+      <input [formControl]="this.studentInput" class="input input-bordered input-primary input-lg join-item"
+             [placeholder]="'Ex. '+ randomStudent?.name"/>
+      <button class="btn btn-primary btn-lg join-item">
+        <i class="fi fi-rr-arrow-alt-circle-right text-2xl"></i>
+      </button>
+    </div>
+    <div *ngIf="studentInput.value as filter">
+      <ul class="menu shadow menu-lg absolute w-[352px] bg-base-200 rounded-box z-[1]">
+        <li *ngFor="let student of (students | filterStudents:filter)">
+          <a (click)="selectStudent(student)" class="flex gap-5">
+            <div class="avatar">
+              <div class="w-10 mask mask-squircle">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{student.name}}}&backgroundType=solid&backgroundColor=b6e3f4" alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div>
+            {{student.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <table class="table mx-auto" *ngIf="studentsChosen.length > 0">
+    <!-- head -->
+    <thead>
+    <tr>
+      <th>Etudiant</th>
+      <th>Type de travail</th>
+      <th>Type de joueur</th>
+      <th>Année d'arrivée</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- row 1 -->
+    <tr *ngFor="let student of studentsChosen">
+      <td>
+        <div class="flex items-center space-x-3">
+          <div class="avatar">
+            <div class="mask mask-squircle w-12 h-12">
+              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{student.name}}}&backgroundType=solid&backgroundColor=b6e3f4" alt="Avatar Tailwind CSS Component" />
+            </div>
+          </div>
+          <div>
+            <div class="font-bold">{{student.firstName}} {{student.lastName}}</div>
+          </div>
+        </div>
+      </td>
+      <td><div class="badge w-100">{{student.studyType}}</div></td>
+      <td><div class="badge w-100">{{student.gamerType}}</div></td>
+      <td><div class="badge w-100">{{student.entryLevel}}</div></td>
+    </tr>
+  </table>
+</ng-container>
