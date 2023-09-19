@@ -21,5 +21,4 @@ create table if not exists DataGame1(
 );
 
 insert into DataGame1 (name, gamer_type, student_type, entry_level)
-    VALUES
-    ('Jules FINCK', 0, 0, "L3");
+values ('Jules FINCK', 0, 0, "L3");

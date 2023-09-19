@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 var cron = require('node-cron');
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger_output.json')
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger_output.json');
 
 const logger = require('./logger');
 const authRoutes = require('./routes/authRoutes');
@@ -14,13 +14,25 @@ const game1Service = require('./services/game1Service');
 const config = {
     name: 'masterdle-api',
     port: 3000,
-    host: '0.0.0.0'
+    host: process.env.API_HOST || 'localhost'
 };
 
 const app = express();
 
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
 async function setSoluceGame1() {
-    app.set('game1Soluce', await game1Service.newRandomSoluce());
+    let s = null;
+    do {
+        await sleep(1000);
+        s = await game1Service.newRandomSoluce();
+    } while (s == null)
+    
+    app.set('game1Soluce', s);
 }
 
 setSoluceGame1();

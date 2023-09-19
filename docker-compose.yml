@@ -1,6 +1,7 @@
 version: '3'
 services:
   api:
+    restart: always
     image: express-api
     build: api/
     networks:
@@ -11,15 +12,19 @@ services:
     - "3000:3000"
   
   db:
+    restart: always
     image: mysql-bdd
-    build: ./bdd
+    build: bdd/
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: masterdle
+    volumes:
+      - db-volume:/var/lib/mysql
     networks:
       - backend
   
   phpmyadmin:
+    restart: always
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: db
@@ -31,6 +36,9 @@ services:
       - backend
     depends_on:
       - db
+
+volumes:
+  db-volume:
 
 networks:
   backend:
