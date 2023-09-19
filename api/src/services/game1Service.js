@@ -18,7 +18,7 @@ exports.newRandomSoluce = async () => {
 
 exports.getData = async (id) => {
     return new Promise((resolve, reject) => {
-        const sql = `Select * FROM DataGame1 WHERE id = ${id}`;
+        const sql = `Select * FROM DataGame1 WHERE id = ${id};`;
         db.query(sql, (err, res) => {
             if (err) {
                 reject(err);
@@ -27,3 +27,15 @@ exports.getData = async (id) => {
         });
     });
 };
+
+exports.getAllData = async () => {
+    return new Promise((resolve, reject) => {
+        const sql = `Select * FROM DataGame1;`;
+        db.query(sql, (err, res) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(res);
+        });
+    });
+}

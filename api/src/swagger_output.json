@@ -117,17 +117,60 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "schema": {
+              "type": "number",
+              "example": 2
+            }
           },
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
+            "required": true,
+            "type": "string",
+            "description": "token"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Game1Answer"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "407": {
+            "description": "Proxy Authentication Required"
+          }
+        }
+      }
+    },
+    "/game1/allData": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Game1Data"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -194,6 +237,57 @@
         "user_role": {
           "type": "string",
           "example": "user"
+        }
+      }
+    },
+    "Game1Answer": {
+      "type": "object",
+      "properties": {
+        "isTrue": {
+          "type": "boolean",
+          "example": false
+        },
+        "ans": {
+          "type": "object",
+          "properties": {
+            "gameType": {
+              "type": "boolean",
+              "example": true
+            },
+            "studentType": {
+              "type": "boolean",
+              "example": false
+            },
+            "entryLevel": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        }
+      }
+    },
+    "Game1Data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "NOM1 Prénom1"
+        },
+        "gamer_type": {
+          "type": "number",
+          "example": 4
+        },
+        "student_type": {
+          "type": "number",
+          "example": 3
+        },
+        "entry_level": {
+          "type": "string",
+          "example": "L1"
         }
       }
     }

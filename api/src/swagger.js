@@ -10,6 +10,22 @@ const doc = {
             user_name: 'Prenom NOM',
             user_role: 'user'
         },
+        Game1Answer: {
+            isTrue: false,
+            ans: {
+                gameType: true,
+                studentType: false,
+                entryLevel: true
+            }
+        },
+        Game1Data:
+        {
+            "id": 1,
+            "name": "NOM1 Prénom1",
+            "gamer_type": 4,
+            "student_type": 3,
+            "entry_level": "L1"
+        }
     }
 }
 
