@@ -31,6 +31,8 @@ export class StudentDlePageComponent implements OnInit{
   selectStudent(student: StudentBo) {
     console.log(student);
     this.studentInput.setValue("");
-    this.studentsChosen.push(student);
+    student.submitAnswer = this.studentDleService.submitSoluce(student);
+    student.submitted = true;
+    this.studentsChosen.unshift(student);
   }
 }

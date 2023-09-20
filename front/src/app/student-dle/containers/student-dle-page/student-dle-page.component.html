@@ -1,9 +1,9 @@
 <ng-container *ngIf="students$| async as students">
   <div class="flex flex-col justify-between">
     <div class="join rounded-full">
-      <input [formControl]="this.studentInput" class="input input-bordered input-primary input-lg join-item"
+      <input [formControl]="this.studentInput" class="input input-bordered bg-base-200 input-primary input-lg join-item"
              [placeholder]="'Ex. '+ randomStudent?.name"/>
-      <button class="btn btn-primary btn-lg join-item">
+      <button class="btn btn-primary bg-base-200 btn-outline btn-lg join-item">
         <i class="fi fi-rr-arrow-alt-circle-right text-2xl"></i>
       </button>
     </div>
@@ -22,20 +22,19 @@
       </ul>
     </div>
   </div>
-  <table class="table mx-auto" *ngIf="studentsChosen.length > 0">
+  <table class="table w-auto" *ngIf="studentsChosen.length > 0">
     <!-- head -->
     <thead>
     <tr>
       <th>Etudiant</th>
-      <th>Type de travail</th>
-      <th>Type de joueur</th>
-      <th>Année d'arrivée</th>
+      <th *ngFor="let attribute of randomStudent?.attributes">
+        {{attribute._name}}
+      </th>
       <th></th>
     </tr>
     </thead>
     <tbody>
-    <!-- row 1 -->
-    <tr *ngFor="let student of studentsChosen">
+    <tr *ngFor="let student of studentsChosen" class="rounded" [ngClass]="{'bg-primary': student.submitAnswer?.isSoluce}">
       <td>
         <div class="flex items-center space-x-3">
           <div class="avatar">
@@ -48,9 +47,20 @@
           </div>
         </div>
       </td>
-      <td><div class="badge w-100">{{student.studyType}}</div></td>
-      <td><div class="badge w-100">{{student.gamerType}}</div></td>
-      <td><div class="badge w-100">{{student.entryLevel}}</div></td>
+      <td *ngFor="let attribute of student.attributes; let index = index">
+        <label class="swap swap-flip">
+          <div class="swap-off">
+            <div class="badge badge-base-200">
+              {{attribute._value}}
+            </div>
+          </div>
+          <div class="swap-on">
+            <div class="badge" [ngClass]="student.submitAnswer!.attributes[index]._value ? 'badge-success' : 'badge-error'">
+              {{attribute._value}}
+            </div>
+          </div>
+        </label>
+      </td>
     </tr>
   </table>
 </ng-container>

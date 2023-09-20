@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
-import {Observable, of} from "rxjs";
+import {map, Observable, of} from "rxjs";
+import {StudentBo, SubmitAnswerBo} from "../../app/student-dle/student-dle.model";
 
 export interface Student {
     firstName: string,
@@ -22,7 +23,7 @@ export class StudentRepository {
       entryLevel : 'L3'
     }
 
-  getStudents(): Observable<Student[]> {
+  getStudents(): Observable<StudentBo[]> {
     return of([
         this.soluce,
       {
@@ -46,17 +47,37 @@ export class StudentRepository {
         studyType: 'try-hard',
         entryLevel: 'L3'
       }
-    ]);
+    ]).pipe(
+      map((students: Student[]) => students.map((student: Student) => new StudentBo(student)))
+    )
   }
 
-  submitSoluce(student: Student): boolean[] {
-        return [
-        student.firstName === this.soluce.firstName &&
-        student.lastName === this.soluce.lastName,
-        student.gamerType === this.soluce.gamerType,
-        student.studyType === this.soluce.studyType,
-        student.entryLevel === this.soluce.entryLevel,
-        ]
+  submitSoluce(student: StudentBo): SubmitAnswerBo {
+    let studentDto: Student = StudentMapper.mapToDto(student);
+    let bool = [
+      studentDto.firstName === this.soluce.firstName && studentDto.lastName === this.soluce.lastName,
+      studentDto.gamerType === this.soluce.gamerType,
+      studentDto.studyType === this.soluce.studyType,
+      studentDto.entryLevel === this.soluce.entryLevel
+    ];
+    return new SubmitAnswerBo(bool);
+
   }
 
+}
+
+export class StudentMapper {
+  static mapToBo(student: Student): StudentBo {
+    return new StudentBo(student);
+  }
+
+  static mapToDto(studentBo: StudentBo): Student {
+    return {
+      firstName: studentBo.firstName,
+      lastName: studentBo.lastName,
+      gamerType: studentBo.attributes[0]._value,
+      studyType: studentBo.attributes[1]._value,
+      entryLevel: studentBo.attributes[2]._value
+    }
+  }
 }
